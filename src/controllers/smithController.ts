@@ -15,4 +15,11 @@ export default class SmithController {
     const registerProdResponse = await this.service.registerProducts(product);
     return res.status(201).json(registerProdResponse);
   };
+
+  public registerUser = async (req: Request, res: Response) => {
+    const user = req.body;
+    const registerUserResponse = await this.service.registerUser(user);
+    const JWTtoken = generateJWT(registerUserResponse);
+    return res.status(201).json({ token: JWTtoken });
+  };
 }
