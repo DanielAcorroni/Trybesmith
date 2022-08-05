@@ -9,6 +9,15 @@ export default class SmithModel {
     this.connection = connection;
   }
 
+  public async getAllOrders() {
+    const queryPt1 = 'SELECT o.*, CONCAT(\'[\',GROUP_CONCAT(p.id),\']\') AS products';
+    const queryPt2 = 'FROM Trybesmith.Orders AS o';
+    const queryPt3 = 'LEFT JOIN Trybesmith.Products AS p ON p.orderId = o.id';
+    const queryPt4 = 'GROUP BY o.id ORDER BY o.userId;';
+    const query = `${queryPt1} ${queryPt2} ${queryPt3} ${queryPt4}`;
+    const [response] = await this.connection.execute<RowDataPacket[]>(query);
+    return response;
+  }
 
   public async getAllProducts(): Promise<IProduct[]> {
     const [response] = await this.connection.execute('SELECT * FROM Trybesmith.Products;');
