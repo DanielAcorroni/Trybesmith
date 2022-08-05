@@ -9,6 +9,18 @@ export default class SmithService {
   constructor() {
     this.model = new SmithModel(connection);
   }
+
+  public async getAllOrders() {
+    const ordersReponse = await this.model.getAllOrders();
+    const returnObj = ordersReponse.map(({ id, userId, products }) => ({
+      id,
+      userId,
+      productsIds: JSON.parse(products),
+    }));
+    
+    return returnObj;
+  }
+
   public async getAllProducts(): Promise<IProduct[]> {
     const productsReponse = await this.model.getAllProducts();
     return productsReponse;
