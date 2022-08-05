@@ -10,6 +10,11 @@ export default class SmithModel {
   }
 
 
+  public async getAllProducts(): Promise<IProduct[]> {
+    const [response] = await this.connection.execute('SELECT * FROM Trybesmith.Products;');
+    return response as IProduct[];
+  }
+
   public async registerProducts(product: IProduct): Promise<IProduct> {
     const { name, amount } = product;
     const [response] = await this.connection
