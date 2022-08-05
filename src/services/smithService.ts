@@ -16,4 +16,8 @@ export default class SmithService {
     return registerProdResponse;
   }
 
+  public async registerUser(user: IUser): Promise<IUser> {
+    const registerUserResponse = await this.model.registerUser(user);
+    return registerUserResponse;
+  }
 }
