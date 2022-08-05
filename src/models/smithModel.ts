@@ -24,4 +24,14 @@ export default class SmithModel {
     );
     return { id: response.insertId, ...product };
   }
+
+  public async registerUser(user: IUser): Promise<IUser> {
+    const { username, classe, level, password } = user;
+    const [response] = await this.connection
+      .execute<ResultSetHeader>(
+      'INSERT INTO Trybesmith.Users (username, classe, level, password) VALUES (?, ?, ?, ?)',
+      [username, classe, level, password],
+    );
+    return { id: response.insertId, ...user };
+  }
 }
