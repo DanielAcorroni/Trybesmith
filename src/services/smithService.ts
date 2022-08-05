@@ -6,6 +6,9 @@ import IUser from '../interfaces/userInterface';
 export default class SmithService {
   public model: SmithModel;
 
+  constructor() {
+    this.model = new SmithModel(connection);
+  }
   public async getAllProducts(): Promise<IProduct[]> {
     const productsReponse = await this.model.getAllProducts();
     return productsReponse;
